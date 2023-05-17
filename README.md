@@ -9,4 +9,4 @@
 - [Cloud Signaling]()
 - [Outbound Threat Filter]()
 - [Application Layer]()
-- [STIX Feeds]()
+- [STIX/TAXII Feeds]()

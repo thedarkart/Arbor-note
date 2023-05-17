@@ -59,3 +59,66 @@
 
 ## Establish UI familiarity and workflow
 
+### Accessing the Web User Interface (UI)
+
+- Instructor-led Demonstration of Web UI
+
+
+### AED Administration Workflows
+
+- Status Bar - Deployment Mode
+
+- Monitor Deployment Mode
+
+## Current AED Operational status
+
+- Summary Page Overview
+
+- Top Protection Groups Section
+
+- Overview Section
+
+- Top Countries Section
+
+- Top Inbound Sources & Destinations Sections
+
+- ATLAS Botnet Prevention Section
+
+- Web Crawlers
+
+- Viewing Protections Interfaces
+
+## Establish perspective by identifying current traffic characteristics
+
+### Improving Visibility with Protection Groups 
+
+- Protection Groups (PGs)
+
+- Default Protection Group
+
+- Supported Protection Groups Limits
+
+- Protection Group Mode
+
+- Protection level
+
+- Server types
+
+- Protection group Server type
+
+- Server Types and Attack Protections
+
+- Protections per Standard Server type
+
+- Inbound Protection Processing Sequence
+
+
+### Turning Protection Setting using Traffic Profiles
+
+- Traffic Profile Learning
+
+- Profile - Protections Supported
+
+- Profile Capture
+
+- Inaccurate Profiled Data May Result
