@@ -1,5 +1,20 @@
 # Unit 1: NETSCOUT AED Overview
 
+## Table of contents
+
+- [Unit 1: NETSCOUT AED Overview](#unit-1-netscout-aed-overview)
+  - [Table of contents](#table-of-contents)
+  - [AED architectural and functional](#aed-architectural-and-functional)
+    - [AED Platform](#aed-platform)
+    - [AED Interfaces](#aed-interfaces)
+  - [Establish UI familiarity and workflow](#establish-ui-familiarity-and-workflow)
+    - [Accessing the Web User Interface (UI)](#accessing-the-web-user-interface-ui)
+    - [AED Administration Workflows](#aed-administration-workflows)
+  - [Current AED Operational status](#current-aed-operational-status)
+  - [Establish perspective by identifying current traffic characteristics](#establish-perspective-by-identifying-current-traffic-characteristics)
+    - [Improving Visibility with Protection Groups](#improving-visibility-with-protection-groups)
+    - [Turning Protection Setting using Traffic Profiles](#turning-protection-setting-using-traffic-profiles)
+
 
 ## AED architectural and functional
 
