@@ -34,6 +34,23 @@
     - [TCP Connection Reset Thresholds](#tcp-connection-reset-thresholds)
     - [TCP Connection Reset Additional Detection Criteria](#tcp-connection-reset-additional-detection-criteria)
   - [Traffic Shaping](#traffic-shaping)
+    - [Protection — Traffic Shaping](#protection--traffic-shaping)
+  - [TCP SYN Flood Detection](#tcp-syn-flood-detection-2)
+  - [ICMP Flood Detection](#icmp-flood-detection)
+    - [ICMP Flood Attack](#icmp-flood-attack)
+    - [ICMP Flood Detection](#icmp-flood-detection-1)
+  - [UDP Flood Detection](#udp-flood-detection)
+    - [UDP Flood Attacks](#udp-flood-attacks)
+    - [DNS Amplification Attacks](#dns-amplification-attacks)
+    - [DNS Amplification Attack](#dns-amplification-attack)
+    - [UDP Flood Detection](#udp-flood-detection-1)
+  - [Fragmentation Detection](#fragmentation-detection)
+    - [Fragmentation Attacks](#fragmentation-attacks)
+    - [Fragment Detection](#fragment-detection)
+  - [Multicast Blocking](#multicast-blocking)
+    - [Protection — Multicast Blocking](#protection--multicast-blocking)
+  - [Private Address Blocking](#private-address-blocking)
+    - [Protection — Private Address Blocking](#protection--private-address-blocking)
 
 ## Invalid packets category
 
@@ -105,7 +122,7 @@ options) plus TCP (20 bytes without options) or UDP (8 bytes)
 - To exhaust the server resources
 - Continuously send packets with just the SYN bit set
 - Keep open connection
-- SYN packets is small size
+- `SYN packets` is small size
 
 ### TCP SYN Handshake: Half-Open Connection
 
@@ -115,17 +132,17 @@ options) plus TCP (20 bytes without options) or UDP (8 bytes)
 
 ### TCP SYN Flood Detection
 
-- The number of SYN packets per second exceeds the SYN Rate
-- The SYN ACK Delta Rate is exceeded 
+- The number of `SYN packets per second` exceeds the `SYN Rate`
+- The `SYN ACK Delta Rate` is exceeded 
 - Traffic is dropped and source is temporarily blocked
 
 ## Spoofed SYN Flood Prevention
 
 ### Spoofed SYN Flood Prevention
 
-- Any TCP connection attempt will be inspected
-— TCP traffic to other ports is not allowed through until source is authenticated
-- TCP connections from non-authenticated sources are not allowed through but neither are the sources blocked
+- Any `TCP connection attempt` will be inspected
+— `TCP traffic` to other ports is not allowed through until source is authenticated
+- T`CP connections` from non-authenticated sources are not allowed through but neither are the sources blocked
 — Can protect against highly distributed attacks
 
 ### Spoofed SYN Flood Prevention Automation
@@ -144,7 +161,7 @@ options) plus TCP (20 bytes without options) or UDP (8 bytes)
 ### TCP Connection Limiting
 
 - Not block hosts
-- Limit TCP connections from single host with system-defined threshold
+- Limit `TCP connections` from single host with system-defined threshold
 
 ### TCP Connection Limiting Default Settings
 
@@ -173,14 +190,14 @@ options) plus TCP (20 bytes without options) or UDP (8 bytes)
 ### TCP Connection Reset Thresholds
 
 - The minimum amount of data (Initial Timeout Required Data) 
-- HTTP or SSL/TLS request is not sent at Minimum Request Bit Rate (token bucket with a depth of 60 seconds)
-- HTTP header is not sent within 60 seconds
+- `HTTP` or `SSL/TLS` request is not sent at Minimum Request Bit Rate (token bucket with a depth of 60 seconds)
+- `HTTP header` is not sent within 60 seconds
 - Block any source hosts that exceed the configured number of consecutive violations
-- Change time limit to allow HTTP header transmission
+- Change time limit to allow `HTTP heade`r transmission
 ```sh
   system attributes set pkt.engine.mitigation.19.idle_reset.header_time = 30
 ```
-- Compute minimum rate of HTTP or SSL/TLS request
+- Compute minimum rate of `HTTP` or `SSL/TLS `request
 ```sh
   system attributes set pkt.engine.mitigation.19.idle_reset.rate_interval = 30
 ```
@@ -191,3 +208,87 @@ options) plus TCP (20 bytes without options) or UDP (8 bytes)
 - Enable this protection to keep track of connections after initial state
 
 ## Traffic Shaping
+
+### Protection — Traffic Shaping
+
+- Limit the forwarding rate of the traffic that matches a specific filter
+- Drop the packets if the packet would cause the forwarding rate to exceed the maximum rates
+- Use as a last resort or when attack vector can't be isolated
+- Sources are not blocked
+
+## TCP SYN Flood Detection
+
+- `SYN Rate` is the number of pps a source can send before it is blocked
+- `SYN ACK Delta Rate` is allowable difference between the number of ACK packets and the number of `SYN packets` (Delta Rate = `SYN-ACK`) should be lower value than SYN Rate
+- Block traffic which exceeds rate limit
+
+## ICMP Flood Detection
+
+### ICMP Flood Attack
+
+- Continuously send `ICMP packets`
+- `ICMP Reflection attack` sends an Echo Request to the (broadcast) IP 
+
+### ICMP Flood Detection
+
+- If the number of ICMP packets per second exceeds the ICMP Rate, offending host is temporarily blocked
+- Not solve the problem for reflection attacks when the sources are highly distributed
+
+## UDP Flood Detection
+
+### UDP Flood Attacks
+
+- Is stateless, a common flood attack
+- Can impact infrastructure causing collateral damage cause jitter and latency, impacting other services like `VoIP`
+
+### DNS Amplification Attacks
+
+- DNS is the primary attack target with UDP floods with high rate of large UDP packets
+- Filter List allows to deal with an UDP flood
+
+### DNS Amplification Attack
+
+![](https://i.ibb.co/3zKVLsz/Screenshot-2023-05-18-211757.png)
+
+### UDP Flood Detection
+
+- Separate thresholds for `bps` and `pps`
+- `Hosts violating` a threshold during medium or high protection level are temporarily blocked
+- `Hosts violating` a threshold on Iow protection level are not blocked but `UDP traffic` is policed down to the configured threshold
+- Disabled by default generally except for medium and high protection levels for server type and its derivatives
+
+## Fragmentation Detection
+
+### Fragmentation Attacks
+
+- Flood of IP fragments to overwhelm the victim's ability to reassemble the packets and severely reducing performance
+- May also be malformed in some way
+- May be a result of a network misconfiguration
+
+### Fragment Detection
+
+- Separate thresholds for `bps` and `pps`
+- The threshold at medium or high protection level are temporarily
+blocked
+- The threshold at low protection level are not blocked but fragmented traffic is policed down to the configured threshold
+- By default, disabled on low and enabled on medium and high protection level for all server types
+
+## Multicast Blocking
+
+### Protection — Multicast Blocking
+
+- Drops all traffic sourced from or destined to multicast address space
+- Disabled by default and enable only for protection groups that must not receive any multicast traffic
+- Whitelist any small multicast CIDRs that are active through AED
+
+## Private Address Blocking
+
+### Protection — Private Address Blocking
+
+- Protect against attacks that spoof private IP addresses
+- Drops all traffic sourced from or destined to:
+  - 0.0.0.0/8
+  - 10.0.0.0/8
+  - 127.0.0.0/8
+  - 172.16.0.0/12
+  - 192.168.0.0/16
