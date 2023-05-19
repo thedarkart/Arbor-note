@@ -55,7 +55,7 @@
     - [Mitigation Requested versus Mitigation Activated Status](#mitigation-requested-versus-mitigation-activated-status)
     - [Manually Deactivating Cloud-based Mitigation](#manually-deactivating-cloud-based-mitigation)
     - [Automatically Requesting Cloud-based Mitigation](#automatically-requesting-cloud-based-mitigation)
-    - [Automatic Triggers — Cloud Provider Activated](#automatic-triggers--cloud-provider-activated)
+    - [Automatic Triggers - Cloud Provider Activated](#automatic-triggers---cloud-provider-activated)
     - [Cloud Mitigation Blocked Traffic Graphs](#cloud-mitigation-blocked-traffic-graphs)
 
 ## Cloud Signaling For DDoS Protection
@@ -126,7 +126,7 @@ Not support for IPv6 trafiic
     - IPv6 hosts
     - Domains on the inbound blacklist
     - Items that are not assigned to `All Protection Groups`
-    — Arbitrarily selects 1000 URLs from the blacklist if more than 1000 URLs
+    - Arbitrarily selects 1000 URLs from the blacklist if more than 1000 URLs
 
 ### How AED Communicates with Cloud Signaling Servers
 
@@ -188,8 +188,8 @@ URL for Cloud service provider portal
 
 - Send the lists when it connects to the `Cloud Signaling server`
 - Resend the blacklists and whitelist to the `Cloud Signaling server`
-— Change are made to the either inbound black/whitelists
-— Automatically resends the lists every 12 hours
+- Change are made to the either inbound black/whitelists
+- Automatically resends the lists every 12 hours
 - Update the lists any time sending the blacklists and whitelist
 
 ### Automate Cloud-based Mitigation Requests
@@ -238,7 +238,7 @@ Connection error messages
 - `GRE` over `LACP` is not supported
 - Specify a `GRE tunnel destination` that is downstream of AED
 - Cannot specify a `GRE tunnel` destination if `vAED` in `Layer 3 mode`
-— Use the `IP address` of the external interface as the tunnel destination
+- Use the `IP address` of the external interface as the tunnel destination
 
 ### GRE Tunnel Termination Configuration
 
@@ -268,7 +268,7 @@ Connection error messages
 ### Targeted Cloud Signaling Workflow
 
 - After the attack traffic rate falls below the `25 Mbps` threshold, the mitigation stop
-— AED removes the prefix and creates a change log entry
+- AED removes the prefix and creates a change log entry
 
 ## Manual Targeted Cloud Signaling
 
@@ -328,7 +328,7 @@ the configured threshold for activating Cloud Signaling
 ### Manually Deactivating Cloud-based Mitigation
 
 - Deactivate an active mitigation request, only the current request is affected
-— Deactivate Cloud Signaling for a protection group, and its traffic immediately exceeds the threshold again, AED re-activates `Cloud Signaling` for that protection group
+- Deactivate Cloud Signaling for a protection group, and its traffic immediately exceeds the threshold again, AED re-activates `Cloud Signaling` for that protection group
 - When a mitigation is requested automatically, it stops automatically unless stop it manually first
 
 ### Automatically Requesting Cloud-based Mitigation
@@ -336,11 +336,11 @@ the configured threshold for activating Cloud Signaling
 - Configured `Global Threshold` was exceeded
 - AED initiates cloud mitigation request to `Cloud Signaling provider network`
 
-### Automatic Triggers — Cloud Provider Activated
+### Automatic Triggers - Cloud Provider Activated
 
 - An event occurred in the Cloud Provider network `Cloud Signaling Server` triggered a mitigation
 Information about mitigation is important to the AED
-— Traffic statistics calculated into total traffic seen for `Automatic Cloud Signaling` trigger
+- Traffic statistics calculated into total traffic seen for `Automatic Cloud Signaling` trigger
 
 ### Cloud Mitigation Blocked Traffic Graphs
 
