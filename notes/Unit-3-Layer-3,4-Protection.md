@@ -34,7 +34,7 @@
     - [TCP Connection Reset Thresholds](#tcp-connection-reset-thresholds)
     - [TCP Connection Reset Additional Detection Criteria](#tcp-connection-reset-additional-detection-criteria)
   - [Traffic Shaping](#traffic-shaping)
-    - [Protection — Traffic Shaping](#protection--traffic-shaping)
+    - [Protection - Traffic Shaping](#protection---traffic-shaping)
   - [TCP SYN Flood Detection](#tcp-syn-flood-detection-2)
   - [ICMP Flood Detection](#icmp-flood-detection)
     - [ICMP Flood Attack](#icmp-flood-attack)
@@ -48,9 +48,9 @@
     - [Fragmentation Attacks](#fragmentation-attacks)
     - [Fragment Detection](#fragment-detection)
   - [Multicast Blocking](#multicast-blocking)
-    - [Protection — Multicast Blocking](#protection--multicast-blocking)
+    - [Protection - Multicast Blocking](#protection---multicast-blocking)
   - [Private Address Blocking](#private-address-blocking)
-    - [Protection — Private Address Blocking](#protection--private-address-blocking)
+    - [Protection - Private Address Blocking](#protection---private-address-blocking)
 
 ## Invalid packets category
 
@@ -141,9 +141,9 @@ options) plus TCP (20 bytes without options) or UDP (8 bytes)
 ### Spoofed SYN Flood Prevention
 
 - Any `TCP connection attempt` will be inspected
-— `TCP traffic` to other ports is not allowed through until source is authenticated
-- T`CP connections` from non-authenticated sources are not allowed through but neither are the sources blocked
-— Can protect against highly distributed attacks
+- `TCP traffic` to other ports is not allowed through until source is authenticated
+- `TCP connections` from non-authenticated sources are not allowed through but neither are the sources blocked
+- Can protect against highly distributed attacks
 
 ### Spoofed SYN Flood Prevention Automation
 
@@ -181,9 +181,9 @@ options) plus TCP (20 bytes without options) or UDP (8 bytes)
 
 - Source host is temporarily blocked if it is over threshold
 - By default only works on destination ports:
-  - 80 — HTTP traffic (Web traffic)
-  - 443 — HTTPS traffic (Web traffic) 
-  - 25 — SMTP traffic (mail)
+  - 80 - HTTP traffic (Web traffic)
+  - 443 - HTTPS traffic (Web traffic) 
+  - 25 - SMTP traffic (mail)
 - Protects against the exhaustion of TCP resources when connection tables on servers are full with idle connections
 - Can protect against flood, slow HTTP post and protocol attacks
 
@@ -209,7 +209,7 @@ options) plus TCP (20 bytes without options) or UDP (8 bytes)
 
 ## Traffic Shaping
 
-### Protection — Traffic Shaping
+### Protection - Traffic Shaping
 
 - Limit the forwarding rate of the traffic that matches a specific filter
 - Drop the packets if the packet would cause the forwarding rate to exceed the maximum rates
@@ -275,7 +275,7 @@ blocked
 
 ## Multicast Blocking
 
-### Protection — Multicast Blocking
+### Protection - Multicast Blocking
 
 - Drops all traffic sourced from or destined to multicast address space
 - Disabled by default and enable only for protection groups that must not receive any multicast traffic
@@ -283,7 +283,7 @@ blocked
 
 ## Private Address Blocking
 
-### Protection — Private Address Blocking
+### Protection - Private Address Blocking
 
 - Protect against attacks that spoof private IP addresses
 - Drops all traffic sourced from or destined to:
