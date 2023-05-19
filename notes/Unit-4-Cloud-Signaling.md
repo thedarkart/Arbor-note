@@ -27,6 +27,36 @@
     - [Using Arbor Cloud?](#using-arbor-cloud)
     - [Service Provider Management Portal](#service-provider-management-portal)
     - [About Sharing Inbound Black/Whitelists](#about-sharing-inbound-blackwhitelists)
+    - [Automate Cloud-based Mitigation Requests](#automate-cloud-based-mitigation-requests)
+    - [Targeted Destination Settings](#targeted-destination-settings)
+    - [Configuring Proxy Server for the Handshake](#configuring-proxy-server-for-the-handshake)
+    - [Cloud Signaling Configured](#cloud-signaling-configured)
+    - [Cloud Signaling Handshake](#cloud-signaling-handshake)
+  - [GRE Tunnel](#gre-tunnel)
+    - [GRE Tunneling for Cloud Signaling](#gre-tunneling-for-cloud-signaling)
+    - [Configure GRE Tunneling for Cloud Signaling](#configure-gre-tunneling-for-cloud-signaling)
+    - [GRE Tunnel Termination Notes](#gre-tunnel-termination-notes)
+    - [GRE Tunnel Termination Configuration](#gre-tunnel-termination-configuration)
+  - [Targeted Cloud Signaling](#targeted-cloud-signaling)
+    - [Targeted Destination Cloud Signaling](#targeted-destination-cloud-signaling)
+    - [Automatic Targeted Cloud Signaling](#automatic-targeted-cloud-signaling)
+    - [Active Cloud Signaling Requests Page](#active-cloud-signaling-requests-page)
+    - [Targeted Cloud Signaling Workflow](#targeted-cloud-signaling-workflow)
+  - [Manual Targeted Cloud Signaling](#manual-targeted-cloud-signaling)
+    - [Manual Configuration of Targeted Prefixes](#manual-configuration-of-targeted-prefixes)
+    - [Active Cloud Signaling Requests Page](#active-cloud-signaling-requests-page-1)
+    - [Active Cloud Signaling Request Page Operation](#active-cloud-signaling-request-page-operation)
+    - [Manual Targeted Prefix Cloud Signaling](#manual-targeted-prefix-cloud-signaling)
+    - [Manual Targeted Cloud Signaling Request](#manual-targeted-cloud-signaling-request)
+  - [Cloud Signal Widget](#cloud-signal-widget)
+    - [Cloud Signaling Widget](#cloud-signaling-widget)
+    - [Tasks to Perform with the Cloud Signaling Widget](#tasks-to-perform-with-the-cloud-signaling-widget)
+    - [Manually Requesting Cloud-based Mitigation](#manually-requesting-cloud-based-mitigation)
+    - [Mitigation Requested versus Mitigation Activated Status](#mitigation-requested-versus-mitigation-activated-status)
+    - [Manually Deactivating Cloud-based Mitigation](#manually-deactivating-cloud-based-mitigation)
+    - [Automatically Requesting Cloud-based Mitigation](#automatically-requesting-cloud-based-mitigation)
+    - [Automatic Triggers — Cloud Provider Activated](#automatic-triggers--cloud-provider-activated)
+    - [Cloud Mitigation Blocked Traffic Graphs](#cloud-mitigation-blocked-traffic-graphs)
 
 ## Cloud Signaling For DDoS Protection
 
@@ -144,8 +174,181 @@ Required `Cloud Signaling Server` and `APS ID` information provided by the `Clou
 
 ### Viewing Cloud Signaling Server Status
 
+Checking alerts which are problems with the server
+
 ### Using Arbor Cloud?
+
+Enable if using `Arbor Cloud DDoS Protection Server` which automatically whitelist of proxy server 
 
 ### Service Provider Management Portal
 
+URL for Cloud service provider portal
+
 ### About Sharing Inbound Black/Whitelists
+
+- Send the lists when it connects to the `Cloud Signaling server`
+- Resend the blacklists and whitelist to the `Cloud Signaling server`
+— Change are made to the either inbound black/whitelists
+— Automatically resends the lists every 12 hours
+- Update the lists any time sending the blacklists and whitelist
+
+### Automate Cloud-based Mitigation Requests
+
+- Automate cloud-based mitigation global requests 
+- `bps` and `pps` threshold 
+- Interval time to automatic start/stop delay timer
+
+### Targeted Destination Settings
+
+### Configuring Proxy Server for the Handshake
+
+- Add the proxy server IP address or hostname and specify the port number
+- The user name and the password required to access the proxy server
+- Authentication can be selected if AED is unable
+to detect it via the Automatic option
+
+### Cloud Signaling Configured
+
+- Connection status
+- Cloud mitigation widget displays when last signal received
+
+### Cloud Signaling Handshake
+
+Connection error messages
+
+## GRE Tunnel
+
+### GRE Tunneling for Cloud Signaling
+
+- Provide a destination for cleaned traffic that the provider routes back to the network
+- Not re-inspect the traffic
+
+### Configure GRE Tunneling for Cloud Signaling
+
+- GRE tunnel endpoint must be a public IP
+- No support for:
+  - IPv6 GRE tunnels
+  - IPv6 traffic
+  - Encapsulated inside IPv4 tunnels
+
+### GRE Tunnel Termination Notes
+
+- Trafic is immediately forwarded to `Next Hop` 
+- Not inspected by `protection groups`
+- `GRE` over `LACP` is not supported
+- Specify a `GRE tunnel destination` that is downstream of AED
+- Cannot specify a `GRE tunnel` destination if `vAED` in `Layer 3 mode`
+— Use the `IP address` of the external interface as the tunnel destination
+
+### GRE Tunnel Termination Configuration
+
+![](https://i.ibb.co/sqrmJq0/Screenshot-2023-05-19-084859.png)
+
+## Targeted Cloud Signaling
+
+### Targeted Destination Cloud Signaling
+
+- Request `cloud-based` mitigation for any `IPv4 prefixes` on which traffic exceeds one of the specified thresholds
+- Must also enable `Top Sources` and `Destinations`
+
+### Automatic Targeted Cloud Signaling
+
+- Start when:
+  - Traffic exceeds the `Global Cloud Signal Threshold`
+  - One or more `IPv4 prefixes` exceeds a targeted destination threshold
+- Replace all prefixes in the global cloud mitigation with the targeted `IPv4 prefixes`
+
+### Active Cloud Signaling Requests Page
+
+- Targeted hosts
+- Duration of `cloud-based` mitigation
+- Rate which triggered mitigation
+- Automatic mitigations cannot be manually removed
+
+### Targeted Cloud Signaling Workflow
+
+- After the attack traffic rate falls below the `25 Mbps` threshold, the mitigation stop
+— AED removes the prefix and creates a change log entry
+
+## Manual Targeted Cloud Signaling
+
+### Manual Configuration of Targeted Prefixes
+
+- Can add additional prefixes
+- Added to the mitigation request when traffic exceeds the defined threshold
+
+### Active Cloud Signaling Requests Page
+
+Lists all prefixes included in a targeted `Cloud Signaling Request`
+
+### Active Cloud Signaling Request Page Operation
+
+Add/remove targeted IPs:
+- Use commas to separate multiple entries
+- Can enter one or more prefixes
+
+### Manual Targeted Prefix Cloud Signaling
+
+`Active Cloud Signaling Requests` page displays all prefixes that are included in a request for targeted Cloud Signaling
+
+### Manual Targeted Cloud Signaling Request
+
+- No active requests: AED sends a targeted prefix
+request
+- Active targeted request: AED adds the prefix to the
+request
+- Active global request: Global request must be
+deactivated before AED can send a targeted request
+
+## Cloud Signal Widget
+
+### Cloud Signaling Widget
+
+- Automatically updates `Cloud Signaling` status
+- Provides manual control of mitigation requests
+
+### Tasks to Perform with the Cloud Signaling Widget
+
+- Request or stop a global cloudm mitigation 
+- Request or stop mitigation for a specific IPv4 PG
+- Open the Configure Cloud Signaling settings page
+- Open your cloud service provider's management portal
+
+### Manually Requesting Cloud-based Mitigation
+
+- Automatic threshold signaling is disabled or no threshold is configured
+- The attack is too large to mitigate at the data center's premises but the traffic does not exceed
+the configured threshold for activating Cloud Signaling
+- If an attack overloads routers that are deployed upstream of the AED, then the AED cannot detect or mitigate that attack
+
+### Mitigation Requested versus Mitigation Activated Status
+
+![](https://i.ibb.co/25HzK46/Screenshot-2023-05-19-100816.png)
+
+### Manually Deactivating Cloud-based Mitigation
+
+- Deactivate an active mitigation request, only the current request is affected
+— Deactivate Cloud Signaling for a protection group, and its traffic immediately exceeds the threshold again, AED re-activates `Cloud Signaling` for that protection group
+- When a mitigation is requested automatically, it stops automatically unless stop it manually first
+
+### Automatically Requesting Cloud-based Mitigation
+
+- Configured `Global Threshold` was exceeded
+- AED initiates cloud mitigation request to `Cloud Signaling provider network`
+
+### Automatic Triggers — Cloud Provider Activated
+
+- An event occurred in the Cloud Provider network `Cloud Signaling Server` triggered a mitigation
+Information about mitigation is important to the AED
+— Traffic statistics calculated into total traffic seen for `Automatic Cloud Signaling` trigger
+
+### Cloud Mitigation Blocked Traffic Graphs
+
+- `Widget mini-graph` shows amount of traffic blocked by cloud mitigation
+- Larger graph in pop-in supply
+  - Reports `traffic bps` blocked to the AED
+  - Includes bps blocked by Cloud Mitigation in traffic totals
+
+
+
+
