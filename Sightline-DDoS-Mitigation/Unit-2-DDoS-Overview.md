@@ -19,7 +19,7 @@
 
 - Business impact:
     ![](IMG/2023-05-29-07-50-47.png)
-  - `Operational Costs` : SLA infractions, Engineering resources, Increased transit cost, Increased network cost, supply chain disruption, Clean up costs, Personnel turnover
+  - `Operational Costs` : Increased transit cost, Increased network cost, supply chain disruption, Clean up costs, Personnel turnover
   - `Revenue Impact` : Loss of on-line sales, Inability to process transactions, Customer attrition, Opportunity cost due to loss of communications
   - `Corporate Image` : Reputation loss, Stock value reduction
   - `Service Level Agreement Penalty`
@@ -31,4 +31,4 @@
         ![](IMG/2023-05-29-09-32-41.png)
     - State Exhaustion Attack – TCP SYN Flood
         ![](IMG/2023-05-29-09-33-13.png)
-    - q q rtyjkjytrewq  DRFTYHERTYUHGTFRDSAQQWERTGYHJHGFDSA   
+    - 
