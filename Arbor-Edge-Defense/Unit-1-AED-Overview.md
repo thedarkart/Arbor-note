@@ -21,7 +21,7 @@
 ### AED Platform
 
 - Arbor Edge Defense (AED) platform:
-  - A single, stand-alone device
+  - A single, stand-alone device.
   - Deploy at ingress point to detect, block, and report on DDoS attacks.
 
 - `First & Last Line of Defense`
