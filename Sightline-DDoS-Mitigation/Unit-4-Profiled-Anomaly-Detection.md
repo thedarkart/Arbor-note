@@ -7,6 +7,7 @@
   - [Table of contents](#table-of-contents)
   - [Profiled Anomaly Detection Types](#profiled-anomaly-detection-types)
   - [Profiled Router Detection:](#profiled-router-detection)
+  - [Profiled Network Detection](#profiled-network-detection)
 
 
 ## Profiled Anomaly Detection Types
@@ -63,3 +64,61 @@
 
 - Sensitivity Settings
         ![](IMG/2023-06-05-03-57-12.png) 
+
+- Detection Sensitivity: determines the difference between the Traffic Baseline and the Sensitivity Threshold
+  
+        ![](IMG/2023-06-05-04-00-08.png)
+
+        ![](IMG/2023-06-05-04-00-31.png)
+
+        ![](IMG/2023-06-05-04-03-29.png)
+
+- Profiled Latency
+  
+        ![](IMG/2023-06-05-05-21-29.png)
+
+- Severity: Low Alert
+  - Above **Ignore Rate** and **Sensitivity Threshold** for longer than profiled router latency period
+  - May go above the Middle Line but does not stay there for Severity Duration Period
+  - Never goes above Severity Threshold
+        ![](IMG/2023-06-05-05-23-33.png)
+
+- Severity: Medium Alert
+  - Above Ignore Rate and Sensitivity Threshold and stays above for longer than profiled latency period
+  - Above Middle Line staying there for the Severity Duration period
+  - Above the Severity Threshold but does not stay above Severity Threshold for the Severity Duration period
+  
+        ![](IMG/2023-06-05-05-27-47.png)
+
+    
+- Severity: High Alert
+  - Above Ignore Rate and Sensitivity Threshold and stays above for longer than Profiled Latency period
+  - Crosses Severity Threshold and stays above for the Severity Duration period
+
+        ![](IMG/2023-06-05-06-24-52.png)
+
+- Configuration
+
+- Recommendations:
+  - Use Auto Rate Calculation when possible
+  - Set Sensitivity settings high (less sensitive) while baselines are being built (first week)
+  - Manually configuring profiles require on-going maintenance
+  - Fast Flood Detection can be resource intensive 
+  - Get high level infrastructure coverage using network aggregates
+
+
+## Profiled Network Detection
+
+- Overview:
+  - Identifies excessive rates of traffic that cross a managed object boundary or service boundary
+  - Monitors all traffic that crosses boundary
+  - Baselines are updated every thirty minutes at 15 and 45 minutes past the hour
+
+- Configuration:
+  - Administration > Detection > DDoS
+  - Administration > Detection > Global Detection Settings
+ 
+  - `Enable Profile Country Detection`
+  - `Incoming/Outgoing Detection Percent`
+  - `Incoming/Outgoing Severity Percent`
+  - `Incoming/Outgoing Ignore Rates`
