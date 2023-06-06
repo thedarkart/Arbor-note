@@ -7,6 +7,7 @@
   - [Table of contents](#table-of-contents)
   - [Alert Details](#alert-details)
   - [Analyze Anomalies](#analyze-anomalies)
+  - [DOS Alert Statistics](#dos-alert-statistics)
 
 
 ## Alert Details 
@@ -91,9 +92,10 @@ DOS alerts and no more than ~10 high alerts per day on the system
   - Is the data consistent with normal Internet traffic patterns?
 
 - Alert Summary
-        ![](IMG/2023-06-05-18-47-07.png)
+  
+    ![](IMG/2023-06-05-18-47-07.png)
 
-        ![](IMG/2023-06-05-18-48-14.png)
+    ![](IMG/2023-06-05-18-48-14.png)
 
 - Signs of Traffic
   - Several Misuse Types ware detected
@@ -112,7 +114,18 @@ DOS alerts and no more than ~10 high alerts per day on the system
   - Service not offered by this Destination
   - Look at bytes/packet and PPS for the anomaly
 
+- Signs of Normal Usage Spikes
+  - Profiled Anomaly
 
 
+## DOS Alert Statistics
+
+- `Alert > Summary` : All Alerts and Alert Classes display the number of alerts in the system
+  - Ongoing
+  - Recent
+  - Last 24 Hours
+
+
+- `Alert > Activity Reports` : Show activity of Host and Profiled alerts over time
 
 

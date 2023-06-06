@@ -67,15 +67,15 @@
 
 - Detection Sensitivity: determines the difference between the Traffic Baseline and the Sensitivity Threshold
   
-        ![](IMG/2023-06-05-04-00-08.png)
+    ![](IMG/2023-06-05-04-00-08.png)
 
-        ![](IMG/2023-06-05-04-00-31.png)
+    ![](IMG/2023-06-05-04-00-31.png)
 
-        ![](IMG/2023-06-05-04-03-29.png)
+    ![](IMG/2023-06-05-04-03-29.png)
 
 - Profiled Latency
   
-        ![](IMG/2023-06-05-05-21-29.png)
+    ![](IMG/2023-06-05-05-21-29.png)
 
 - Severity: Low Alert
   - Above **Ignore Rate** and **Sensitivity Threshold** for longer than profiled router latency period
@@ -88,14 +88,14 @@
   - Above Middle Line staying there for the Severity Duration period
   - Above the Severity Threshold but does not stay above Severity Threshold for the Severity Duration period
   
-        ![](IMG/2023-06-05-05-27-47.png)
+    ![](IMG/2023-06-05-05-27-47.png)
 
     
 - Severity: High Alert
   - Above Ignore Rate and Sensitivity Threshold and stays above for longer than Profiled Latency period
   - Crosses Severity Threshold and stays above for the Severity Duration period
 
-        ![](IMG/2023-06-05-06-24-52.png)
+      ![](IMG/2023-06-05-06-24-52.png)
 
 - Configuration
 
