@@ -95,5 +95,24 @@ DOS alerts and no more than ~10 high alerts per day on the system
 
         ![](IMG/2023-06-05-18-48-14.png)
 
-- 
+- Signs of Traffic
+  - Several Misuse Types ware detected
+  - Traffic levels reported for the misuse types indicate an abnormal behavior
+  - Destination ports not matching the service on the affected host
+  - Inspect the Top Traffic Patterns
+  - Check common services of Managed Object from Report Data
+  - Check normal Top Country Distribution with Report Data
+  - Examine the Traffic Details from the router or boundary with the highest volume of traffic, looking for:
+    - Not normal source distribution
+    - Non-standard port distribution
+    - Unexpected source countries
+  - A subnet as source with source ports entire range
+  - A small number of OP destinations with varied destination ports
+  - The anomaly ends with a sharp drop off in traffic
+  - Service not offered by this Destination
+  - Look at bytes/packet and PPS for the anomaly
+
+
+
+
 
