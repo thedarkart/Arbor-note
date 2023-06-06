@@ -7,9 +7,11 @@
   - [Table of contents](#table-of-contents)
   - [TMS Mitigation Workflow](#tms-mitigation-workflow)
   - [Block versus Drop](#block-versus-drop)
+  - [Countermeasure Processing Order](#countermeasure-processing-order)
 
 
 ## TMS Mitigation Workflow
+
 
 - Process Overview
         
@@ -61,11 +63,35 @@
 
 ## Block versus Drop
 
-- TMS Traffic Actions
-        ![](IMG/2023-06-06-15-25-43.png)
+- `TMS Traffic Actions`
+  
+    ![](IMG/2023-06-06-15-25-43.png)
 
+- `Dynamic Blacklist (Host Blocking)`: Blacklisting countermeasure identifies source host that violate appropriate behavior
+  - Offending Host added to dynamic blacklist
+  - After blocking time
+    - The host is removed from the dynamic blacklist
+    - Traffic is processed again
+    - If the host continues to offend it will be blacklisted again
 
+- Dynamic Blacklist Countermeasures
+  
+    ![](IMG/2023-06-06-15-55-55.png)
 
+## Countermeasure Processing Order
+
+- Countermeasure are defense mechanisms that you can use to target and remove attack traffic, it act primarily using one or more of four enforcement types:
+  - Pass packets
+  - Drop packets
+  - Block Source IP address or flow
+  - Rate limit/ shape
+
+- Processing Types
+  - Per-Packet
+
+    ![](IMG/2023-06-06-15-57-24.png)
+
+  - Event-Driven
 
 
 
