@@ -33,6 +33,17 @@
   - [Per Connection Flood Protection](#per-connection-flood-protection)
     - [Overview](#overview-5)
     - [Configuration](#configuration-3)
+    - [Options](#options)
+  - [Traffic Shaping](#traffic-shaping)
+    - [Overview](#overview-6)
+    - [Configuration](#configuration-4)
+    - [Monitoring](#monitoring-1)
+  - [IP Location Policing](#ip-location-policing)
+    - [Overview](#overview-7)
+    - [IP location Policing Rate Suggestion](#ip-location-policing-rate-suggestion)
+    - [Mitigation Template](#mitigation-template)
+    - [Adding a Country](#adding-a-country)
+    - [Updating a country](#updating-a-country)
 
 
 ## Flooding Attacks
@@ -217,4 +228,63 @@
 
 ### Configuration
 
-- 
+- Limit the amount of traffic that can be send through a single connection
+  `5-tuple = src IP + dst IP + Protocol + src Port + dst Port`
+
+### Options
+
+- Rate limit protection on a connection 5-tuple
+- Enabled for all, multiple, or specific TCP and UDP port
+- Can block or rate limit offending connection
+- Intended where Zombie Detection by source host is impractical
+
+## Traffic Shaping
+
+### Overview
+
+- Limit Attack traffic to a level that allows protected hosts to function
+  - Use when all other countermeasure are not removing enough
+  - Shaping is done before traffic is sent to application decoders
+
+### Configuration
+
+- Using `FCAP Filter` to scope the shaping to a specific traffic stream
+- Up to 10 queues
+- Each use a `FCAP Filter Expression` and maximum `Traffic Levels` settings in bps and pps
+
+### Monitoring
+
+- Shaping status graphs of dropped traffic are color-coded by enabled shaping queue
+
+## IP Location Policing
+
+### Overview
+
+- Mitigate traffic from ether `specified` or `unspecified`
+- May block some legitimate traffic:
+  - Geographic inaccuracy and flux
+  - IP space can span broad geographic expanses
+  - Normal users present in unexpected geographic region due to travel or migration
+
+- Rate suggestion possible per configured `Managed Object`
+  - Must be enabled ahead of time
+  - Can establish pre-attack level country based rates
+
+### IP location Policing Rate Suggestion
+
+- Supported only for Ipv4-based `Managed Object`
+- Collect per-country rate statistics by `Generate IP Location Policing Rate Suggestions`
+- Rate Suggestions used in the IP Location Policing countermeasure
+
+### Mitigation Template
+
+- Load All Countries and Rates on Mitigation Start
+- Can do in `Mitigation Status` page
+
+### Adding a Country
+
+- `Load All Countries` adds all of the countries's traffic for which Arbor Sightline has data
+- `Load Rates` loads the generates rates for all countries whose configured actions are "rate shape"
+- `Add Country` is used to specify a country whose traffic should be policed
+
+### Updating a country
