@@ -21,6 +21,15 @@
   - [HTTP Malformed](#http-malformed)
     - [Overview](#overview-3)
     - [Protection Levels](#protection-levels)
+  - [HTTP Authentication](#http-authentication)
+    - [Overview](#overview-4)
+    - [Configuration](#configuration-2)
+    - [Application Reset](#application-reset)
+    - [HTTP Authentication](#http-authentication-1)
+    - [HTTP Authentication + JavaScript](#http-authentication--javascript)
+    - [Caveats](#caveats)
+  - [HTTP Limiting](#http-limiting)
+    - [Overview Request Limiting](#overview-request-limiting)
 
 ## Application Layer Attacks
 
@@ -143,7 +152,56 @@
     - All requests must have User-Agent:
     - All requests must have Connection:
 
-  
+## HTTP Authentication
 
+### Overview
 
+- `TCP SYN Authentication`: New HTTP connection undergoes additional checks for proper HTTP behavior
+- `TCP SYN Authentication` options:
+  - Enable `Application Reset`
+  - `HTTP Authentication`
+  - Require `JavaScript for HTTP Authentication`
 
+- HTTP extensions are mutually exclusive
+  - `HTTP Authentication` takes priority over `Application Reset`
+  - `JavaScript for HTTP Authentication` takes priority
+
+### Configuration
+
+- Modes
+  - Applications Reset
+  - HTTP Authentication
+  - HTTP Authentication with JavaScript
+
+- HTTP Ports
+  - Used by all HTTP authentication options
+  - Defines TCP ports being used by HTTP
+
+### Application Reset
+
+- Avoid sending a TCP RST from the TMS, get the client to tear down the TCP connection instead
+
+### HTTP Authentication
+
+- Add additional security by using the HTTP protocol to validate the client and test its protocol awareness…
+
+### HTTP Authentication + JavaScript
+
+- Add additional security by using the HTTP protocol to validate the client and test its protocol awareness and JS support...
+- Stop curl and similar tools that can respond to 302 redirect status codes.
+- Slight obfuscation that prevents the redirection URI from being parsed trivially out of the response HTTP packet.
+- Dynamic JavaScript challenge to make guessing and probing by botnet components more difficult.
+-  Use elements not normally found in JavaScript tools
+
+### Caveats
+
+- Only works with HTTP traffic (not HTTPS)
+- Default ports (80 and 8080) can be changed per mitigation or global
+- All sessions must be persistent to a single TMS
+
+## HTTP Limiting
+
+### Overview Request Limiting
+
+- HTTP Request Limiting blacklists clients that exceed a given rate of
+HTTP requests
