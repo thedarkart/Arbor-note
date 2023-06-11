@@ -20,6 +20,7 @@
     - [Configuration](#configuration-1)
   - [HTTP Malformed](#http-malformed)
     - [Overview](#overview-3)
+    - [Protection Levels](#protection-levels)
 
 ## Application Layer Attacks
 
@@ -124,6 +125,25 @@
 
 ### Overview
 
+- Blocks attacks that send invalid or black HTTP request to a server to exhaust resources or to exploit vulnerabilities
+  - HTTP headers checked for compliance to RFC 2626 Section 2.2 "Basic Rules"
+  - Protection levels medium/high add progressively stricter checks
+  - Violating messages are dropped and source host is blacklisted
+
+### Protection Levels
+
+- HTTP header field rules by level
+  - Low
+    - HTTP 1.1 requests must have Host:
+  - Medium
+    - HTTP 1.1 requests must have Host:
+    - All requests must have User-Agent:
+  - High
+    - HTTP 1.1 requests must have Host:
+    - All requests must have User-Agent:
+    - All requests must have Connection:
+
+  
 
 
 
