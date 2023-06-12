@@ -30,6 +30,10 @@
     - [Caveats](#caveats)
   - [HTTP Limiting](#http-limiting)
     - [Overview Request Limiting](#overview-request-limiting)
+    - [Overview Object Limiting](#overview-object-limiting)
+  - [HTTP Regular Expression](#http-regular-expression)
+    - [Overview](#overview-5)
+    - [Configuration](#configuration-3)
 
 ## Application Layer Attacks
 
@@ -205,3 +209,24 @@
 
 - HTTP Request Limiting blacklists clients that exceed a given rate of
 HTTP requests
+
+### Overview Object Limiting 
+
+- HTTP Object Limiting blacklists clients that exceed a give rate of HTTP request ro a single object
+
+## HTTP Regular Expression
+
+### Overview
+
+- AIF and HTTP Regular Expressions
+provide a mechanism to block specific
+HTTP requests that impact a server or
+service
+
+### Configuration
+
+- Without using AIF-ATLAS Intelligence Feed 
+
+  ![](IMG/2023-06-13-01-00-11.png)
+
+- `AIF Malware Family Blocking`
