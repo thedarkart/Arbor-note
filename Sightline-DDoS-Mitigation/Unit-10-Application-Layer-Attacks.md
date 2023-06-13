@@ -59,6 +59,12 @@
     - [Configuration](#configuration-5)
     - [Use Case](#use-case)
     - [Sample Packets](#sample-packets)
+  - [SIP Malformed](#sip-malformed)
+    - [Overview](#overview-11)
+    - [Caveats](#caveats-1)
+  - [SIP Request Limiting](#sip-request-limiting)
+    - [Overview](#overview-12)
+    - [Sample Packets](#sample-packets-1)
 
 ## Application Layer Attacks
 
@@ -427,3 +433,28 @@ service
   - Supports up to five expressions evaluated simultaneously per mitigation
   - If request either match or do not match (depending on  the settings) the expressions, Arbor TMS dynamically drops the offending traffic coming from the source host
 
+## SIP Malformed
+
+### Overview
+
+- Block attacks that send invalid or blank SIP messages to a server to exhaust resources to exploit vulnerabilities
+  - Basic SIP Message types must conform to RFC 3261
+  - UDP Keepalives are considered valid SIP packets
+
+### Caveats
+
+- Validates SIP Messages are in the proper format in two steps
+  - All packets sent to port 5060 are checked to make sure there is a payload
+  - SIP decoder verifies a SIP message has been received
+
+## SIP Request Limiting
+
+### Overview
+
+- Blocks source clients that attempt to send a high rate of SIP messages to a SIP server or gateway
+  - Standard token-bucket to track the number of messages per client
+  - If the SIP messages rate is above the Limit, the message is dropped and the source is blacklisted
+
+### Sample Packets
+
+- Use `SIP Regular Expression` for matching
