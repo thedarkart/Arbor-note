@@ -34,6 +34,12 @@
   - [HTTP Regular Expression](#http-regular-expression)
     - [Overview](#overview-5)
     - [Configuration](#configuration-3)
+    - [Use Cases](#use-cases-1)
+    - [Mitigation Status](#mitigation-status)
+    - [Sample Packet](#sample-packet)
+    - [Workflow](#workflow-1)
+  - [DNS Malformed](#dns-malformed)
+    - [Overview](#overview-6)
 
 ## Application Layer Attacks
 
@@ -229,4 +235,38 @@ service
 
   ![](IMG/2023-06-13-01-00-11.png)
 
-- `AIF Malware Family Blocking`
+- `AIF Malware Family Blocking`:
+  - `Header Regular Expressions` and `URL Filter Lists` can only block matching traffic
+  
+### Use Cases
+
+- Drop traffic to a particular site hosted on a server
+- Drop traffic to the attacked URI and move the service
+- Drop traffic from external sites that moved their DNS to your site!
+- Drop traffic from Referred sites
+- Drop invalid HTTP headers
+
+### Mitigation Status
+
+- Graph can be total of subset for each enforcement AIF level
+
+### Sample Packet
+
+- Sample Packet can use `HTTP RegEx` to filter the result
+  
+### Workflow
+
+  1. Examine Sample Attack Packets
+  2. Create RegEx Filter
+  3. Monitor Result
+
+## DNS Malformed
+
+### Overview
+
+- Block attacks that send invalid or black DNS messages to a server to exhaust resources or to exploit vulnerabilities
+  - Validates DNS Messages
+  - Packet is dropped but sources hosts are note blacklisted
+  - DNS Z Flag is no longer validated with Release >= 9.3
+  - 
+
