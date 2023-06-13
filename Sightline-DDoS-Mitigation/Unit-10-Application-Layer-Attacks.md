@@ -40,6 +40,25 @@
     - [Workflow](#workflow-1)
   - [DNS Malformed](#dns-malformed)
     - [Overview](#overview-6)
+  - [DNS Authentication](#dns-authentication)
+    - [Reflection and Amplification Attack](#reflection-and-amplification-attack)
+    - [Dictionary Attack](#dictionary-attack)
+    - [Overview](#overview-7)
+    - [Configuration](#configuration-4)
+    - [Passive Mode](#passive-mode)
+    - [Active UDP Mode](#active-udp-mode)
+    - [Active TCP Mode](#active-tcp-mode)
+    - [Recommendation](#recommendation)
+  - [DNS Rate Limiting Options](#dns-rate-limiting-options)
+    - [Overview](#overview-8)
+    - [NXDOMAIN Limit](#nxdomain-limit)
+      - [Overview](#overview-9)
+      - [TMS Design](#tms-design)
+  - [DNS Regular Expression](#dns-regular-expression)
+    - [Overview](#overview-10)
+    - [Configuration](#configuration-5)
+    - [Use Case](#use-case)
+    - [Sample Packets](#sample-packets)
 
 ## Application Layer Attacks
 
@@ -268,5 +287,143 @@ service
   - Validates DNS Messages
   - Packet is dropped but sources hosts are note blacklisted
   - DNS Z Flag is no longer validated with Release >= 9.3
-  - 
+
+## DNS Authentication
+
+### Reflection and Amplification Attack
+
+![](IMG/2023-06-13-13-27-52.png)
+
+### Dictionary Attack
+
+![](IMG/2023-06-13-13-28-51.png)
+
+### Overview
+
+- Types of protection mode:
+  - Passive
+    - Caching/Recursive Server
+    - Authoritative Serve
+  - Active UDP
+    - Authoritative Servers
+  - Active TCP
+    - Caching/Recursive Server
+    - Authoritative Serve
+
+- `DNS Authentication Timeout` is number of seconds after which DNS request is considered to have failed authentication
+
+### Configuration
+
+- DNS Malformed
+- DNS Authentication
+- DNS Rate Limiting
+- DNS NXDomain Rate Limiting
+
+### Passive Mode
+
+- Drops the first DNS request (UDP/53) from a client
+  - Src address is whitelisted it client retransmits DNS request within DNS Authentication Timeout
+  - Retry and subsequent request are passed to destination
+
+- Only works well  for randomly spoofed address attacks where each packet is a unique source IP
+
+### Active UDP Mode
+
+
+- Useful for protecting Internet-facing DNS server that only respond to queries for which they have authoritative answers
+  - Protects the Authoritative Servers for the zone
+  - Only recursive/caching DNS servers can authenticate
+    - Traffic from unauthenticated clients is dropped
+    - DNS Client (recursive servers) are re-directed using a NS record response (TMS)
+    - DNS Client follows challenge and is authenticated for 60 seconds
+
+- Key: The TMS does not give the A record for the server in the redirect as a normal DNS server =>  The recurser is forced to do a look up for the name (our cookie) => it will authenticating it self
+- Default Idle timeout: 60s
+
+
+![](IMG/2023-06-13-13-48-34.png)
+
+![](IMG/2023-06-13-13-52-21.png)
+
+![](IMG/2023-06-13-13-52-46.png)
+
+### Active TCP Mode
+
+- Uses the "Truncate" feature  of the DNS Protocol as a form of DNS redirection during authentication
+  - Client usually handles DNS Truncate in IP stack
+  - Seamless transition is invisible to client applications 
+  - Effective regardless of whether the protected server is authoritative or not for the queried domain name
+
+- TCP DNS query intercepted between client and DNS Server when client is authenticated the TCP DNS query is forwarded
+  - First DNS query (UDP/53) from client intercepted and spoofed reply from TMS with Truncate bit set returned
+  - Second DNS query (TCP/53) from client to server passed by TMS
+
+### Recommendation
+
+- NETSCOUT currently suggest TCP Active Mode as the default protection for DNS Servers
+- Use `Active UDP` mode, if servers do not support TCP DNS request, and the servers are authoritative for all legitimate desirable DNS requests
+- `Passive Mode` is generally recommend only when:
+  - A high-traffic DNS attack is using random IP source 
+  - Neither Active mode can be used due to DNS server configuration constraints
+
+## DNS Rate Limiting Options
+
+### Overview
+
+- Protects against attacks from legitimate hosts
+- Track queries per second by authenticated source address
+  - If all DNS queries exceed DNS Query Rate Limit, the source is blacklisted
+  - If unique DNS queries exceed DNS Query Object Limiting, the source is dropped or blacklisted
+
+- `DNS Query Rate Limit` : A reasonable maximum value for user clients of the nameserver infrastructure
+
+### NXDOMAIN Limit
+
+#### Overview
+
+- Limits the rate at which clients may send DNS queries for non-exsitent domains (NXDomain responses)
+  - Queries per second are based on source/destination pair
+  - Failed queries exceeding DNS NXDomain Rate Limit -> the source is blacklisted
+
+#### TMS Design
+
+- TMS must see DNS NXDOMAIN response from the server
+
+![](IMG/2023-06-13-15-41-17.png)
+
+## DNS Regular Expression
+
+### Overview
+
+- DNS domain filtering is designed to block attacks that contain unique DNS domain nam information
+- Types of filtering:
+  - DNS Regex Expression
+  - DNS Filter Lists
+- Processing of `DNS Filter Lists` is more efficient than `DNS Regular Expressions`, but filtering is more flexible with DNS Regular Expressions
+- DNS Requests are typically decoded using string-based, instead of hex-based, matches
+
+### Configuration 
+
+- Drop matched traffic or unmatched traffic
+- Choose record type from dropdown 
+- Up to 5 regular expressions
+
+- Match regular expressions to inbound requests, inbound responses, or both
+- Source host can be blacklisted instead of a single packet drop
+- Match multiple regular expression s
+- Choose DNS resource record types to match
+  
+
+### Use Case
+
+- Drop all DNS queries for a certain domain
+- Pass all queries for certain domains or FQDNs public resolvable
+  
+### Sample Packets
+
+- Can configure a Arbor TMS countermeasure to look for specific values in the header of DNS request packet
+  - A packet-by-packet analysis
+  - Can place the source on a blacklist
+  - Supports up to five expressions evaluated simultaneously per mitigation
+  - If request either match or do not match (depending on  the settings) the expressions, Arbor TMS dynamically drops the offending traffic coming from the source host
 
