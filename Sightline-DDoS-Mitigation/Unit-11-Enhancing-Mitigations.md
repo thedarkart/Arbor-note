@@ -122,7 +122,6 @@
 
 ![](IMG/2023-06-14-13-19-47.png)
 
-- SP (Security Provider)
 - AED filter lists updates
   - Sent by AED to SP over normal Cloud Signaling messages
   - AED sends an update when a blacklist or whitelist changes on AED
