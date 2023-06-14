@@ -30,6 +30,7 @@
     - [Template Concepts](#template-concepts)
       - [Configuration](#configuration-2)
   - [Inactive TMS Mitigation](#inactive-tms-mitigation)
+    - [Configuration](#configuration-3)
 
 ## Continual Improving Services
 
@@ -222,3 +223,10 @@ summary of its targeted use case
   - Peer
 
 ## Inactive TMS Mitigation
+
+![](https://i.ibb.co/QcXydMn/Screenshot-2023-06-14-130415.png)
+
+### Configuration
+
+- Choose Mitigation > Threat Management
+- Run inactive mitigation and review the number of false positive drops
