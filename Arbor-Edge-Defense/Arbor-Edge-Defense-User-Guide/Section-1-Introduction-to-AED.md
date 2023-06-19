@@ -7,6 +7,7 @@
   - [About AED](#about-aed)
     - [Key features](#key-features)
     - [Focus on the customer edge](#focus-on-the-customer-edge)
+  - [Application](#application)
 
 
 ## About AED
@@ -28,4 +29,7 @@
 ### Focus on the customer edge
 
 - AED has complete visibility into packet-level data.
-- Deploying 
+- Deploying close to the customer edge => AED can focus on newer and better detection methods without performance constraints of the service provider level
+- Allow AED to detect and block the low-bandwidth attacks that target the enterprise infrastructure
+
+## Application 
