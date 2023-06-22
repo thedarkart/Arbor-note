@@ -25,6 +25,9 @@
   - [About the AED User Interfaces](#about-the-aed-user-interfaces)
     - [About the UI](#about-the-ui)
     - [About the CLI](#about-the-cli)
+  - [Using the AED API](#using-the-aed-api)
+    - [How to view the AED API documentation](#how-to-view-the-aed-api-documentation)
+    - [Generating an API token](#generating-an-api-token)
 
 
 ## About AED
@@ -148,4 +151,30 @@
 - Can upload a custom certificate and its certificate authority (CA) file
 
 ### About the CLI
+
+- Can enter commands and navigate through the directories on the AED appliance
+- Use to install and upgrade the software and to complete the initial configuration
+
+
+## Using the AED API
+
+- Allow to access AED functionality and extend it for your own use
+- Included with the AED appliance
+
+### How to view the AED API documentation
+
+`https://IP_address_of_your_AED/api/aed/doc/v3/endpoints.html`
+
+### Generating an API token
+
+- `Token-based authentication`: mus include `X-Arbux-APIToken` key and the API token 
+- To generate an API token
+  - Login to the CLI with administrator account
+  - Enter:
+    -  `/ service aaa local apitoken generate`
+    -  `userName“tokenDescription”`
+  - Result: `Added token: 4wtwfuxgaRyA0rGcpbTGLzKy4_j7iQmRJeTdyIBN`
+  - Save: `/ config write`
+  - To view the generated API token: `/ service aaa local apitoken show`
+
 
