@@ -15,6 +15,14 @@
     - [Communicating with the cloud-based license server](#communicating-with-the-cloud-based-license-server)
     - [How to obtain cloud-based licenses](#how-to-obtain-cloud-based-licenses)
     - [Expiration of cloud-based licenses](#expiration-of-cloud-based-licenses)
+  - [Configuring Cloud-Based licenses for vAED](#configuring-cloud-based-licenses-for-vaed)
+    - [Process for configuring licenses](#process-for-configuring-licenses)
+    - [Process for upgrading the throughput limit](#process-for-upgrading-the-throughput-limit)
+    - [Configuring access to the cloud-based license server](#configuring-access-to-the-cloud-based-license-server)
+    - [vAED license server settings](#vaed-license-server-settings)
+    - [Requesting a throughput limit for vAED](#requesting-a-throughput-limit-for-vaed)
+    - [Refreshing local license information](#refreshing-local-license-information)
+    - [Releasing local licenses on vAED](#releasing-local-licenses-on-vaed)
 
 
 ## About vAED
@@ -75,5 +83,54 @@
 
 - `Licenses` page > `Expiration` fields
   - Display the dates on which the licenses expire on the cloud-based license server
-  - If
+  
+
+## Configuring Cloud-Based licenses for vAED
+
+### Process for configuring licenses
+
+- Steps to configure vAED licenses
+  - Configure access to the cloud-based license server
+  - Request a local license for a throughput limit
+  - (Optional) Refresh the local license information when needed
+  
+### Process for upgrading the throughput limit
+
+- Steps to upgrade vAED licenses
+  - Refresh the local license information
+  - Request a new throughput limit
+
+### Configuring access to the cloud-based license server
+
+- Select **Administration > Licenses**
+- Specify server settings in **Licenses > Cloud-Based License Server**
+- Save
+
+### vAED license server settings
+
+![](IMG/2023-06-29-13-21-03.png)
+
+### Requesting a throughput limit for vAED
+
+- `Administration > Licenses > Requested Throughput Limit box`
+- Can request from 20 Mbps up to 1 Gbps (depends on the purchase)
+- Save
+
+### Refreshing local license information
+
+- Situations:
+  - After a network change occurs
+  - After add more throughput capacity to the server or update the AIF license level
+  - after resolve any issues that may have caused a license refresh to fail
+
+- `Administration > Licenses'
+  - Click `Refresh Local Copy of License` to refresh
+
+### Releasing local licenses on vAED
+
+- The licenses expire 10 days after you decommission vAED
+
+- `Administration > Licenses`
+  - Enter 0 at 'Requested Throughput Limit` box and Save
+
 
