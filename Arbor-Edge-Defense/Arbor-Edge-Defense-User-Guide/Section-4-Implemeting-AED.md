@@ -20,6 +20,11 @@
       - [Connectivity model: layer 3 mode (vAED only)](#connectivity-model-layer-3-mode-vaed-only)
       - [Connectivity model: monitor mode](#connectivity-model-monitor-mode)
   - [About the Deployment Modes](#about-the-deployment-modes)
+    - [About the inline mode and layer 3 mode](#about-the-inline-mode-and-layer-3-mode)
+    - [About the monitor mode](#about-the-monitor-mode)
+    - [Viewing the current deployment mode](#viewing-the-current-deployment-mode)
+    - [About the Layer 3 Deployment Mode](#about-the-layer-3-deployment-mode)
+      - [Changing the deployment mode from inline to layer 3](#changing-the-deployment-mode-from-inline-to-layer-3)
 
 
 
@@ -117,4 +122,31 @@ Step
 
 
 ## About the Deployment Modes
+
+### About the inline mode and layer 3 mode
+
+- As a physical connection between two end points
+- Can configure to block traffic
+
+- The inline deployment mode: **Inline Bridged**
+- The layer 3 deployment mode appears: **Inline Routed**
+  
+- Protection mode:
+  - Active: AED mitigates attacks in addition monitoring traffic and detecting attacks
+  - Inactive: Not performing mitigations
+
+### About the monitor mode
+
+### Viewing the current deployment mode
+
+In the upper right of the AED window
+
+### About the Layer 3 Deployment Mode
+
+- Only for vAED
+- Deployment Mode: **Inline Routed**
+- Need a valid license 
+- In this mode, vAED will forwards all of the traffic that meets the mitigation rules and has a route configured for the destination network
+
+#### Changing the deployment mode from inline to layer 3
 
