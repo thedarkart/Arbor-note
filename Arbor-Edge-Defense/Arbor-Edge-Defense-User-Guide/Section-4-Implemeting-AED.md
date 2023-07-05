@@ -11,6 +11,15 @@
     - [Work flow](#work-flow)
     - [After the trial period](#after-the-trial-period)
   - [Implementing AED for Active Mitigation](#implementing-aed-for-active-mitigation)
+    - [Workflow](#workflow)
+  - [About the AED Deployment Models](#about-the-aed-deployment-models)
+    - [Types of deployment models](#types-of-deployment-models)
+  - [Network Connectivity Models](#network-connectivity-models)
+      - [About the Protection interface connections](#about-the-protection-interface-connections)
+      - [Connectivity Model: Inline mode](#connectivity-model-inline-mode)
+      - [Connectivity model: layer 3 mode (vAED only)](#connectivity-model-layer-3-mode-vaed-only)
+      - [Connectivity model: monitor mode](#connectivity-model-monitor-mode)
+  - [About the Deployment Modes](#about-the-deployment-modes)
 
 
 
@@ -49,4 +58,63 @@
 
 ## Implementing AED for Active Mitigation
 
--
+- AED can mitigate traffic only when the deployment mode is `Inline Bridged` and the protection mode is active
+
+### Workflow
+
+Step 
+1. Determine where and how to place AED in your network
+2. Install AED by following the instructions in the `AED Installation Guide`
+3. Configure the minium settings for using AED
+4. Verify the following settings
+   - The protection mode: **Active**
+   - The protection level: **Low**
+5. (Optional) Adjust the protection settings
+6. (Optional) Add one or more protection groups
+7. (Optional) Add one or more protection groups
+
+## About the AED Deployment Models
+
+### Types of deployment models
+
+  ![](IMG/2023-07-05-18-20-45.png)
+
+## Network Connectivity Models
+
+- Ways to connect AED
+  - Inline with or without mitigations enabled
+  - Out-of-line through a span port or network tap, with no mitigations (monitor mode)
+
+#### About the Protection interface connections
+
+- The protection interfaces: ext, int0, ext1, int1 (ext for external, int for internal)
+  
+#### Connectivity Model: Inline mode
+
+- AED analyzes the traffic, detects attacks and mitigates the attacks before it sends the traffic to its destination
+
+  ![](IMG/2023-07-05-18-29-57.png)
+
+- Can configure AED to fail open (bypass) or fail closed (disconnect) if a power failure, hardware failure, or software failure occurs
+- By default, hardware bypass is set to fail open and software bypass is enabled
+- Inactive protection mode: AED analyzes traffic and detects attacks without performing mitigations
+
+#### Connectivity model: layer 3 mode (vAED only)
+
+- Configure mitigations routes by specifying IP addresses for the nexthop and the destination host
+- vAED inspects all of the traffic that traverses the specified route and mitigates any attacks before it routes the traffic to its destination.
+
+  ![](IMG/2023-07-05-19-24-32.png)
+
+#### Connectivity model: monitor mode
+
+- Deployed out-of-line through a span port or network tap
+- Analyze traffic, detects possible attacks but not mitigations
+
+  ![](IMG/2023-07-05-19-26-00.png)
+
+- Should disable link state propagation if you deploy AED in the monitor mode:  The link state propagation can prevent the corresponding external interface from coming up
+
+
+## About the Deployment Modes
+
