@@ -23,8 +23,14 @@
     - [About the inline mode and layer 3 mode](#about-the-inline-mode-and-layer-3-mode)
     - [About the monitor mode](#about-the-monitor-mode)
     - [Viewing the current deployment mode](#viewing-the-current-deployment-mode)
-    - [About the Layer 3 Deployment Mode](#about-the-layer-3-deployment-mode)
-      - [Changing the deployment mode from inline to layer 3](#changing-the-deployment-mode-from-inline-to-layer-3)
+  - [About the Layer 3 Deployment Mode](#about-the-layer-3-deployment-mode)
+    - [Changing the deployment mode from inline to layer 3](#changing-the-deployment-mode-from-inline-to-layer-3)
+    - [Changing the deployment mode from layer 3 to inline](#changing-the-deployment-mode-from-layer-3-to-inline)
+    - [Backing up and restoring data while oin the layer 3 deployment mode](#backing-up-and-restoring-data-while-oin-the-layer-3-deployment-mode)
+  - [Setting the Protection Mode (Active or Inactive)](#setting-the-protection-mode-active-or-inactive)
+    - [About changing the protection mode for multiple devices](#about-changing-the-protection-mode-for-multiple-devices)
+    - [Viewing the current protection mode](#viewing-the-current-protection-mode)
+    - [Changing the system-wide protection mode](#changing-the-system-wide-protection-mode)
 
 
 
@@ -141,12 +147,51 @@ Step
 
 In the upper right of the AED window
 
-### About the Layer 3 Deployment Mode
+## About the Layer 3 Deployment Mode
 
 - Only for vAED
 - Deployment Mode: **Inline Routed**
 - Need a valid license 
 - In this mode, vAED will forwards all of the traffic that meets the mitigation rules and has a route configured for the destination network
 
-#### Changing the deployment mode from inline to layer 3
+### Changing the deployment mode from inline to layer 3
 
+- vAED removes any GRE tunneling settings: routes, local IP address, remote IP address, subnet mask length
+
+### Changing the deployment mode from layer 3 to inline
+
+- vAED removes:
+  - Any routes that are configured for the protection interfaces
+  - Any Ip addrtess that are configured for the protection interfaces
+  - Any GRE tunneling settings: local IP addresses, remove IP addresses, subnet mask length
+
+### Backing up and restoring data while oin the layer 3 deployment mode
+
+- The following data is not included in any backup:
+  - Any GRE tunneling settings that are configured on the **Interfaces** in the UI 
+  - Any routes that are configured for the protection interfaces
+
+## Setting the Protection Mode (Active or Inactive)
+
+- Active: Monitoring traffic, detecting attacks, mitigates attacks
+- Inactive: Like active but not have mitigates attacks
+
+### About changing the protection mode for multiple devices
+
+- Can set the protection mode for multiple devices
+  - Every device to which a protection group is assigned uses the protection mode that you configure for that protection group
+    - Can override the protection group's protection mode of a specific device
+  - For outbound traffic, all of the managed devices use the protection mode that is set for the AEM outbound threat filter
+
+### Viewing the current protection mode
+
+- `System-wide`: display in the upper right of the device window
+- `Protection group`: 
+  - List Protection Groups (Protect > Inbound Protection > Protection Groups)
+  - View Protection Group
+- `Outbound threat filter`: Protect > Outbound Protection > Outbound Threat Filter
+
+
+### Changing the system-wide protection mode
+
+- Select at the upper right of the device window
