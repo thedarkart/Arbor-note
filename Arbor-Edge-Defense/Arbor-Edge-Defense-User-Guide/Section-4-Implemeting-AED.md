@@ -31,6 +31,12 @@
     - [About changing the protection mode for multiple devices](#about-changing-the-protection-mode-for-multiple-devices)
     - [Viewing the current protection mode](#viewing-the-current-protection-mode)
     - [Changing the system-wide protection mode](#changing-the-system-wide-protection-mode)
+    - [Changing the protection mode for a protection group](#changing-the-protection-mode-for-a-protection-group)
+    - [Changing the protection mode for the outbound threat filter](#changing-the-protection-mode-for-the-outbound-threat-filter)
+  - [Network Placement Models](#network-placement-models)
+    - [Placement mode: downstream](#placement-mode-downstream)
+    - [Placement model: upstream](#placement-model-upstream)
+    - [Placement model: multiple service providers](#placement-model-multiple-service-providers)
 
 
 
@@ -195,3 +201,28 @@ In the upper right of the AED window
 ### Changing the system-wide protection mode
 
 - Select at the upper right of the device window
+
+### Changing the protection mode for a protection group
+
+### Changing the protection mode for the outbound threat filter
+
+## Network Placement Models
+
+- The placement, which determines what AED protects, depends on the type of CE router and the design and architecture of your network
+
+### Placement mode: downstream
+
+  ![](IMG/2023-07-10-23-56-47.png)
+
+### Placement model: upstream
+
+  ![](IMG/2023-07-10-23-57-38.png)
+
+- This configuration queries an Ethernet connection between the CE router and your ISP
+
+### Placement model: multiple service providers
+
+  ![](IMG/2023-07-10-23-59-42.png)
+
+- The number of upstream service providers that AED supports depends on the model that you deploy
+
