@@ -37,6 +37,7 @@
     - [Placement mode: downstream](#placement-mode-downstream)
     - [Placement model: upstream](#placement-model-upstream)
     - [Placement model: multiple service providers](#placement-model-multiple-service-providers)
+    - [Deployment for Redundancy](#deployment-for-redundancy)
 
 
 
@@ -226,3 +227,7 @@ In the upper right of the AED window
 
 - The number of upstream service providers that AED supports depends on the model that you deploy
 
+### Deployment for Redundancy
+
+- Provide failover capabilities and ensure that data center remains available
+- Requires that the configurations on all of the AED installation are exactly the same
