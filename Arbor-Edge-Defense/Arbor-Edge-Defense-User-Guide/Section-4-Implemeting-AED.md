@@ -38,6 +38,11 @@
     - [Placement model: upstream](#placement-model-upstream)
     - [Placement model: multiple service providers](#placement-model-multiple-service-providers)
     - [Deployment for Redundancy](#deployment-for-redundancy)
+  - [Cloud Signaling Deployments Models](#cloud-signaling-deployments-models)
+    - [About Cloud Signaling](#about-cloud-signaling)
+    - [Deployment model: Single ISP with ISP cloud service](#deployment-model-single-isp-with-isp-cloud-service)
+    - [Deployment model: Single ISP with ISP cloud service and multiple Cloud Signaling servers](#deployment-model-single-isp-with-isp-cloud-service-and-multiple-cloud-signaling-servers)
+    - [Deployment model: Dual ISPs with ISP cloud service](#deployment-model-dual-isps-with-isp-cloud-service)
 
 
 
@@ -230,4 +235,36 @@ In the upper right of the AED window
 ### Deployment for Redundancy
 
 - Provide failover capabilities and ensure that data center remains available
-- Requires that the configurations on all of the AED installation are exactly the same
+- Requires that the configurations on all of the AED installation are exactly the same 
+- Perform some additional configuration for the AED device which Cloud Signaling is needed.
+
+
+  ![](IMG/2023-07-14-00-37-53.png)
+
+## Cloud Signaling Deployments Models
+
+- `Cloud Signaling`: THe process of requesting and receiving cloud-based mitigations of volumetric attacks in real time from an upstream service provider
+  - Describe the options for connecting to a cloud service provider
+
+### About Cloud Signaling
+
+- Purchase the cloud-based protection from an ISP or MSSP (Managed Security Service Provider) that supports Cloud Signaling
+- When a qualifying attack occurs
+  - AED signals to the service provider that mitigation help is needed
+  - The service provider mitigates the attack
+
+- Your Cloud Service Provider Might use GRU tunneling to route the cleaned traffic back to your network
+
+### Deployment model: Single ISP with ISP cloud service 
+
+  ![](IMG/2023-07-14-00-44-43.png)
+
+### Deployment model: Single ISP with ISP cloud service and multiple Cloud Signaling servers
+
+- To provide `Cloud Signaling` redundancy, the customer configures up to five `Cloud Signaling` servers
+- `Cloud Signaling` is available unless AED loses communication with all of the Cloud Signaling servers
+
+### Deployment model: Dual ISPs with ISP cloud service
+
+  ![](IMG/2023-07-14-00-47-54.png)
+
