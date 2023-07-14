@@ -43,6 +43,7 @@
     - [Deployment model: Single ISP with ISP cloud service](#deployment-model-single-isp-with-isp-cloud-service)
     - [Deployment model: Single ISP with ISP cloud service and multiple Cloud Signaling servers](#deployment-model-single-isp-with-isp-cloud-service-and-multiple-cloud-signaling-servers)
     - [Deployment model: Dual ISPs with ISP cloud service](#deployment-model-dual-isps-with-isp-cloud-service)
+    - [Deployment model: Single or dual ISPs with MSSP cloud service](#deployment-model-single-or-dual-isps-with-mssp-cloud-service)
 
 
 
@@ -267,4 +268,8 @@ In the upper right of the AED window
 ### Deployment model: Dual ISPs with ISP cloud service
 
   ![](IMG/2023-07-14-00-47-54.png)
+
+### Deployment model: Single or dual ISPs with MSSP cloud service
+
+  ![](IMG/2023-07-14-10-51-36.png)
 
