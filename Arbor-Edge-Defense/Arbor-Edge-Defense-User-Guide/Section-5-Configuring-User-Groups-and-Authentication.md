@@ -1,9 +1,8 @@
-# Section 5: Configuring User Groups and
-Authentication
+# Section 5: Configuring User Groups and Authentication
 
 ## Table of contents
 
-- [Section 5: Configuring User Groups and](#section-5-configuring-user-groups-and)
+- [Section 5: Configuring User Groups and Authentication](#section-5-configuring-user-groups-and-authentication)
   - [Table of contents](#table-of-contents)
   - [About User Authentication](#about-user-authentication)
     - [About local user account](#about-local-user-account)
@@ -35,6 +34,34 @@ Authentication
       - [Viewing the password requirement settings](#viewing-the-password-requirement-settings)
   - [Adding and Editing Local User Accounts](#adding-and-editing-local-user-accounts)
     - [Adding accounts for users that manage AED devices on AEM](#adding-accounts-for-users-that-manage-aed-devices-on-aem)
+    - [Adding local user accounts](#adding-local-user-accounts)
+    - [Editing local user accounts](#editing-local-user-accounts)
+    - [Deleting local user accounts](#deleting-local-user-accounts)
+    - [Local user account settings](#local-user-account-settings)
+    - [When to change your password](#when-to-change-your-password)
+    - [Password requirements](#password-requirements)
+  - [Setting the Authentication Method for RADIUS and TACACS+](#setting-the-authentication-method-for-radius-and-tacacs)
+    - [About the default user group](#about-the-default-user-group)
+    - [Setting the authentication method](#setting-the-authentication-method)
+    - [Setting an exclusive authentication method](#setting-an-exclusive-authentication-method)
+    - [Configuring the accounting levels](#configuring-the-accounting-levels)
+  - [Setting the AED User Group for RADIUS Users](#setting-the-aed-user-group-for-radius-users)
+  - [Setting the AED User Group for TACACS+ Users](#setting-the-aed-user-group-for-tacacs-users)
+  - [Changing the Default User Group for RADIUS and TACACS+](#changing-the-default-user-group-for-radius-and-tacacs)
+    - [Changing the default user group](#changing-the-default-user-group)
+  - [Configuring RADIUS Integration](#configuring-radius-integration)
+    - [About the authentication server](#about-the-authentication-server)
+    - [Adding a RADIUS server](#adding-a-radius-server)
+    - [Setting the number of retries and the timeout period](#setting-the-number-of-retries-and-the-timeout-period)
+    - [Configuring a Network Access Server identifier](#configuring-a-network-access-server-identifier)
+    - [Clearing the NAS identifier](#clearing-the-nas-identifier)
+    - [Viewing the current RADIUS configuration](#viewing-the-current-radius-configuration)
+  - [Configuring TACACS+ Integration](#configuring-tacacs-integration)
+    - [Adding a TACACS+ server](#adding-a-tacacs-server)
+    - [Setting the timeout period](#setting-the-timeout-period)
+    - [Reverting to the default timeout period](#reverting-to-the-default-timeout-period)
+    - [Configuring password expiration notifications](#configuring-password-expiration-notifications)
+    - [Viewing the current TACACS+ configuration](#viewing-the-current-tacacs-configuration)
 
 
 
@@ -245,3 +272,149 @@ that is granted to the users in that group
 ## Adding and Editing Local User Accounts
 
 ### Adding accounts for users that manage AED devices on AEM
+
+- Use the same username in both AEM and AED can help you to open a managed AED from AEM without having to log in to AED
+
+### Adding local user accounts
+
+- `Administration > User Accounts > Add Account > Add New Account`
+- Configure the settings and Click `Create Account`
+
+### Editing local user accounts
+
+- `Administration > User Accounts`
+- If you are a non-administrative user, use `Edit Account` page 
+
+### Deleting local user accounts
+
+### Local user account settings
+
+- Administrators can edit any of the user account settings except the username
+
+- Settings for local user account
+  - Username box
+  - Real name box
+  - Email box
+  - Time zone list
+  - Password box
+
+### When to change your password
+
+- After the first time you log in to the AED
+- When your system administrator recommends
+- Before your password expires, if password expiration is configured.
+- ...
+
+### Password requirements
+
+- Password length
+- Number of character types
+- Character mix
+
+## Setting the Authentication Method for RADIUS and TACACS+
+
+### About the default user group
+
+- By default, any user who is not assigned to a user group on the RADIUS or TACACS+ server is assigned to the predefined system_user group in AED
+
+### Setting the authentication method
+
+- `/ services aaa method set{local | radius | tacacs}`
+  - {local | radius | tacacs} = Methods that AED should use to authenticate (type a space between each method)
+
+### Setting an exclusive authentication method
+
+- When you set multiple authentication methods, but want a user to log in with one method
+only
+- `/ services aaa method exclusive enable`
+
+### Configuring the accounting levels
+
+- Use local and TACACS+ accounting settings for each authentication to track and log software logins. configuration changes, and interactive commands.
+- Use RADIUS accounting to track software logins
+
+- `/ services aaa {local | radius | tacacs} accounting set level {none | login | change | commands}`
+
+## Setting the AED User Group for RADIUS Users
+
+- Set the AED user group for RADIUS users on the RADIUS server
+  - Set an `Arbor-Privilege-Level` attribute that has the user group name as its value
+    - `Arbor-Privilege-Level = system_user`
+    - `Arbor-Privilege-Level = system_none`
+    - For the RADIUS server to interpret the `Arbor-Privilege-Level` attribute
+      - `VENDOR Arbor 9694
+        ATTRIBUTE Arbor-Privilege-Level 1 string Arbor`
+
+## Setting the AED User Group for TACACS+ Users
+
+- Set an `arbor` service with an `arbor_group` attribute that has the user group name as its value
+  - Example:
+    - `service = arbor { arbor_group = system_user }`
+    - `service = arbor { arbor_group = system_user }`
+
+## Changing the Default User Group for RADIUS and TACACS+
+
+- Deny AED access to RADIUS users or TACACS+ users with no group assignment
+  - Change the default group to `system_none`
+
+### Changing the default user group
+
+- `/ services aaa groups default set groupName`
+- Save: ` / config write`
+
+## Configuring RADIUS Integration
+
+### About the authentication server
+
+- Can integrate AED with a primary server and a backup server
+
+### Adding a RADIUS server
+
+- To add a RADIUS server: 
+  - `/ services aaa radius server set {primary | backup} IP_address {encrypted | unencrypted} secret [port]`
+    - secret = The secret that AED uses to communicate with the authentication server. For security purposes, use a secret that contains a variety of characters
+    - The default RADIUS port is 1812
+
+### Setting the number of retries and the timeout period
+
+- `/ services aaa radius retries set number`
+  - `number`: Number of times (1-60) that AED tries to authenticate after the first attempt fails
+- `/ services aaa radius timeout set number`
+  - `number`: Number of seconds (1-60) that AED waits for a connection before it tries the backup server
+
+### Configuring a Network Access Server identifier
+
+- A string that identifies the NAS that originates an access request
+  - `/ services aaa radius nas_identifier set string`
+    - ASCII strings (up to 253 characters)
+
+### Clearing the NAS identifier
+
+- `/ services aaa radius nas_identifier clear`
+
+### Viewing the current RADIUS configuration
+
+- `/ services aaa radius show`
+
+## Configuring TACACS+ Integration
+
+### Adding a TACACS+ server
+
+- `/ services aaa tacacs server set {primary | backup} IP_address port{encrypted | unencrypted} secret`
+  - Must specify a TCP port
+
+### Setting the timeout period
+
+- `/ services aaa tacacs timeout set number`
+
+### Reverting to the default timeout period
+
+- `/ services aaa tacacs timeout clear`
+
+### Configuring password expiration notifications
+
+- `/ services aaa tacacs tacpass_expiry_notify {enable | disable} `
+
+### Viewing the current TACACS+ configuration
+
+- `/ services aaa tacacs show`
