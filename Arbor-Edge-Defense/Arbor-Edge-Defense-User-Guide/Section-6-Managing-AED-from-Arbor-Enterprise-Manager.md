@@ -7,6 +7,9 @@
   - [About Managing Devices from AEM](#about-managing-devices-from-aem)
     - [Device management tasks](#device-management-tasks)
     - [Communication between AEM and the devices](#communication-between-aem-and-the-devices)
+    - [Single sign-on](#single-sign-on)
+  - [About Data Synchronization with AEM](#about-data-synchronization-with-aem)
+    - [Viewing the synchronization status](#viewing-the-synchronization-status)
 
 ## About Managing Devices from AEM
 
@@ -23,4 +26,21 @@
 ### Communication between AEM and the devices
 
 - Connect the device to AEM for manage a device from AEM
-  - 
+  - AEM sends request to each device for information (alerts, traffic data)
+  - Device checks AEM periodically for configuration changes and obtains the changes that apply to the device
+
+### Single sign-on
+
+- Can navigate to a device from several areas in the AEM UI
+- If your user account on the device has the same username as your AEM user account, then the device opens without prompting you to log in. 
+  - Can use a different password for each account
+- Must have a valid reverse DNS lookup
+
+## About Data Synchronization with AEM
+
+### Viewing the synchronization status
+
+- `Initial synchronization`
+- `Preparing configuration`
+- `Good`
+- `Out of sync`
