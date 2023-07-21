@@ -41,6 +41,51 @@
     - [Configuring web crawler support](#configuring-web-crawler-support)
     - [Participating in the data-sharing program](#participating-in-the-data-sharing-program)
   - [About Bandwidth Alerts](#about-bandwidth-alerts)
+    - [About the types of bandwidth alerts](#about-the-types-of-bandwidth-alerts)
+    - [Configuring global bandwidth alerts](#configuring-global-bandwidth-alerts)
+    - [Configuring bandwidth alerts for individual protection groups](#configuring-bandwidth-alerts-for-individual-protection-groups)
+    - [Bandwidth alert expiration](#bandwidth-alert-expiration)
+    - [Configuring notifications for bandwidth alerts](#configuring-notifications-for-bandwidth-alerts)
+  - [Configuring Global Thresholds for Bandwidth Alerts](#configuring-global-thresholds-for-bandwidth-alerts)
+    - [Calculating baselines](#calculating-baselines)
+    - [About the percentage sliders](#about-the-percentage-sliders)
+    - [Configuring global thresholds](#configuring-global-thresholds)
+  - [About notifications](#about-notifications)
+    - [Alert types](#alert-types)
+    - [Notification contents](#notification-contents)
+    - [Notification types](#notification-types)
+    - [About the blocked host notifications](#about-the-blocked-host-notifications)
+    - [About the change log notifications](#about-the-change-log-notifications)
+  - [Configuring Notifications](#configuring-notifications)
+    - [Configuring a notification destination](#configuring-a-notification-destination)
+    - [Changing the interval between blocked host notifications](#changing-the-interval-between-blocked-host-notifications)
+    - [Editing notifications](#editing-notifications)
+    - [Deleting notifications](#deleting-notifications)
+    - [Email notification settings](#email-notification-settings)
+    - [SNMP notification settings](#snmp-notification-settings)
+    - [Syslog notification settings](#syslog-notification-settings)
+  - [Configuring Backup Settings](#configuring-backup-settings)
+    - [Planning your backup strategy](#planning-your-backup-strategy)
+    - [Configuring backup settings](#configuring-backup-settings-1)
+    - [Scheduling the automatic creation of backups](#scheduling-the-automatic-creation-of-backups)
+  - [Uploading a Custom SSL Certificate](#uploading-a-custom-ssl-certificate)
+    - [Custom SSL certificate requirements](#custom-ssl-certificate-requirements)
+    - [Uploading a custom SSL certificate](#uploading-a-custom-ssl-certificate-1)
+    - [Reverting to the default AED SSL certificate](#reverting-to-the-default-aed-ssl-certificate)
+  - [Installing a Certificate Authority File](#installing-a-certificate-authority-file)
+    - [Installation steps](#installation-steps)
+    - [Downloading the current CA file](#downloading-the-current-ca-file)
+    - [Modifying the CA file](#modifying-the-ca-file)
+    - [Uploading the CA file](#uploading-the-ca-file)
+    - [Installing the CA file](#installing-the-ca-file)
+  - [Configuring a Secure Connection to a Remote Syslog Server](#configuring-a-secure-connection-to-a-remote-syslog-server)
+    - [Connecting to a remote syslog server](#connecting-to-a-remote-syslog-server)
+  - [Configuring the Protection Interfaces for Layer 3 Mode](#configuring-the-protection-interfaces-for-layer-3-mode)
+    - [Specifying IP addresses for protection interfaces on vAED](#specifying-ip-addresses-for-protection-interfaces-on-vaed)
+    - [Deleting the IP address for a protection interface](#deleting-the-ip-address-for-a-protection-interface)
+    - [Deleting the protection interface settings](#deleting-the-protection-interface-settings)
+  - [Renaming the Protection Interfaces](#renaming-the-protection-interfaces)
+  - [Configuring Link State Propagation for the Protection Interfaces](#configuring-link-state-propagation-for-the-protection-interfaces)
 
 ## About the AED Configuration
 
@@ -315,3 +360,264 @@
 ## About Bandwidth Alerts
 
 - Use bandwidth alerts to inform you about attacks and other traffic anomalies that require your attention
+- The alert includes
+  - The protection group name
+  - the level of traffic that triggered the alert
+  - AED creates a bandwidth alert when the traffic for a protection group exceeds threshold
+
+- Can configure bandwidth alert thresholds globally or for individual protection groups
+
+### About the types of bandwidth alerts
+
+![](IMG/2023-07-21-17-17-43.png)
+
+### Configuring global bandwidth alerts
+
+- Configure on the `System Alerts` page in AED
+- The global thresholds are enabled by default.
+- A global bandwidth alert threshold include:
+  - A baseline threshold: a percentage of this traffic above the base line for the corresponding traffic type
+  - A minium threshold: A traffic rate (bps or pps)
+
+### Configuring bandwidth alerts for individual protection groups
+
+- Can configure when you edit a protection group in AED
+  - Can use the global thresholds or specify traffic thresholds for the protection group
+
+### Bandwidth alert expiration
+
+- Remain active for one hour after it is created
+- The longer that a bandwidth alert condition continue, the more the alerts's expiration time is extended
+- The expiration time is never more then 24 hours after the alert condition disappears
+- An alerts instantly in the following situations:
+  - When you disable that type of alert in the configuration
+  - when you change the type of threshold (global threshold or specified traffic threshold)
+  - when you configure a protection group's alert threshold to a level that is higher than the level that triggered the alert
+  - (botnet alerts only) when the protection level is change4d to be greater than or equal to the level triggered the alert
+
+### Configuring notifications for bandwidth alerts
+
+## Configuring Global Thresholds for Bandwidth Alerts
+
+- AED generates bandwidth alerts when a protection group;'s total traffic, blocked traffic, or botnet traffic exceeds a specified baseline threshold for the corresponding traffic type
+
+### Calculating baselines
+
+- Based on a protection group's traffic for the past week
+- After the A#ED calculates the initial baselines, it recalculates them every hour
+
+### About the percentage sliders
+
+- Can configure a baseline threshold as a percentage of traffic above a protection group's baseline for the corresponding traffic type
+  
+### Configuring global thresholds
+
+- `Administration > System Alerts > Settings tab`
+
+![](IMG/2023-07-21-18-02-34.png)
+
+- Save
+
+## About notifications
+
+- Can configure AED to send notification messages to specified destinations to communicate certain alerts
+  
+### Alert types
+
+![](IMG/2023-07-21-18-04-24.png)
+
+
+### Notification contents
+
+- A typical notification contains the alert type and a message, a link to the host that generated the alert
+
+### Notification types
+
+![](IMG/2023-07-21-18-06-44.png)
+
+### About the blocked host notifications
+
+- Notification interval:
+  - AED allows some time to pass between blocked host notifications for a given host, even if the host is blocked again within that time
+  - Default : 60 minutes
+  - Can change the interval to any amount from 1 - 60 minutes
+
+- Notification limit
+  - To prevent overwhelming the network or the receiving system, only 1000 blocked hosts per minute are identified for notifications
+  - Recommend to use SNMP or syslog for blocked host notifications
+
+### About the change log notifications
+
+- Use the **Change Log** alert type to configure notifications for change log entries
+  - Provide an external trail of all the changes to your AED system
+
+- The change log contains entries for other types of alerts (Cloud, Protection, Deployment)
+
+
+## Configuring Notifications
+
+### Configuring a notification destination
+
+- `Administration > Notifications > Add Destination`
+  - Select a notification type from the pop-up menu
+  - Configure the settings for the specified destination type
+    - Email
+    - SNMP
+    - syslog
+  - Save
+
+### Changing the interval between blocked host notifications
+
+- `Administration > Notifications > Settings tab`
+  - Move the **Notification Interval** slider to specify the amount of time to wait between blocked host notifications for a specific host
+  - Save
+
+### Editing notifications
+
+- `Administration > Notifications`
+  - Click on an item in the `Destination` column
+  - Change any of the settings for the specified destination types
+  - Save
+
+### Deleting notifications
+
+- `Administration > Notifications`
+  - Select the check box for each notifications that you want to delete
+  - Select the check box in the table heading row to delete all of the notifications
+  - Click **Delete** > **OK**
+
+### Email notification settings
+
+- Must configure an SMTP server on the `Configure General Settings` page for AED to send email messages
+- Settings:
+  - `From` box
+  - `To` box
+  - `Alert type` box
+
+### SNMP notification settings
+
+![](IMG/2023-07-21-18-27-09.png)
+
+![](IMG/2023-07-21-18-27-20.png)
+
+### Syslog notification settings
+
+![](IMG/2023-07-21-18-28-05.png)
+
+![](IMG/2023-07-21-18-28-51.png)
+
+## Configuring Backup Settings
+
+- Configure the location for storing backup and schedule the automatic creation of backups
+
+### Planning your backup strategy
+
+![](IMG/2023-07-21-18-30-22.png)
+
+### Configuring backup settings
+
+- `Administration > Backup and Restore > Server Settings section > Edit`
+
+![](IMG/2023-07-21-18-32-39.png)
+
+### Scheduling the automatic creation of backups
+
+- `Administration > Backup and Restore > Schedule section > Edit`
+
+![](IMG/2023-07-21-18-33-16.png)
+
+## Uploading a Custom SSL Certificate
+
+### Custom SSL certificate requirements
+
+- Requirements:
+  - The SSL file and CA file must be PEM-encoded (Privacy Enhanced Mail)
+  - The SSL file must contain the certificate and the key that was used to create the certificate
+  - The SSl file and CA file cannot be password protected
+
+### Uploading a custom SSL certificate
+
+- `Administration > Files > SSL Certificate section > Upload SSL cert`
+  - `Choose file` to locate and select the custom SSL certificate file
+  - `Choose file` to locate and select the custom CA certificate file
+  - `Upload`
+  - `OK`
+- Log out of AED and restart your browser
+
+### Reverting to the default AED SSL certificate
+
+- `Administration > Files > SSL Certificate section > Use default cert > OK`
+- Log out of AED and restart your browser
+
+## Installing a Certificate Authority File
+
+- A certificate authority (CA) file is necessary to validate an SSL certificate
+- Might configure AED to use a secure remote server with an SSL certificate that is trusted by a non-public CA
+  - Must install a CA file for that certificate
+
+### Installation steps
+
+- if you install a custom SSL certificate and CA file for UI access
+  - download and modify the CA file to include the server's CA certificate
+  - After you modify the CA file, you can reinstall the CA file
+
+### Downloading the current CA file
+
+- `Administration > Files > System Files section > CA Certificate`
+- Save the file according to your browser options
+
+### Modifying the CA file
+
+- Open the current CA file in a text editor
+- Append the CA certificate information for the remote servers
+- Save the file in a .pem extension
+
+### Uploading the CA file
+
+- `Administration > Files > Upload File > Choose File`
+  - Locate the file and select it
+  - `Upload`
+  - `Close`
+
+### Installing the CA file
+
+- Log in to the CLI with administrator account
+- `services http certificate import ca_only disk:caFileName.pem`
+
+## Configuring a Secure Connection to a Remote Syslog Server
+
+- Can configure AED to send syslog (audit) data to a remote syslog server
+- AED must trust that a CA signed the certificate for the remote syslog server
+
+### Connecting to a remote syslog server
+
+- `/ services logging remote set host {tcp | udp} port secure`
+
+## Configuring the Protection Interfaces for Layer 3 Mode
+
+- Need to configure static routes for the traffic
+
+### Specifying IP addresses for protection interfaces on vAED
+
+- (Optional) To get a list of the protection interfaces on your appliance
+  - `services aed mitigation interface ?`
+  
+- `/services aed mitigation interface interfaceName network`
+- To verify that any static routes that you previously configured are still valid, enter `/ services aed mitigation route show`
+
+### Deleting the IP address for a protection interface
+
+- Can delete the IP address for a protection interface without deleting the configured routes
+- `/ services aed mitigation interface interfaceName delete`
+
+### Deleting the protection interface settings
+
+- ` / services aed mitigation clear`
+
+## Renaming the Protection Interfaces
+
+- `Administration > Interfaces > Edit`
+  - Type a descriptive name for each interface
+- Save
+
+## Configuring Link State Propagation for the Protection Interfaces
