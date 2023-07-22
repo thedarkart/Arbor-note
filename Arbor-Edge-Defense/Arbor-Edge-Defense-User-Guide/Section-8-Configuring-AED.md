@@ -86,6 +86,18 @@
     - [Deleting the protection interface settings](#deleting-the-protection-interface-settings)
   - [Renaming the Protection Interfaces](#renaming-the-protection-interfaces)
   - [Configuring Link State Propagation for the Protection Interfaces](#configuring-link-state-propagation-for-the-protection-interfaces)
+    - [How link state propagation works](#how-link-state-propagation-works)
+    - [About link state propagation timeouts](#about-link-state-propagation-timeouts)
+    - [Configuring link state propagation](#configuring-link-state-propagation)
+  - [Configuring Static Routes](#configuring-static-routes)
+    - [About routes](#about-routes)
+    - [Configuring routes](#configuring-routes)
+    - [Deleting routes](#deleting-routes)
+  - [Adding a Custom Logo to the U](#adding-a-custom-logo-to-the-u)
+    - [Custom logo file requirements](#custom-logo-file-requirements)
+    - [Uploading and locking a custom logo](#uploading-and-locking-a-custom-logo)
+    - [Unlocking a custom logo](#unlocking-a-custom-logo)
+    - [Using the AED default logo](#using-the-aed-default-logo)
 
 ## About the AED Configuration
 
@@ -621,3 +633,92 @@
 - Save
 
 ## Configuring Link State Propagation for the Protection Interfaces
+
+- `Link State Propagation` enable on each protection interface pair when AED is set to the inline deployment
+  - The default timeouts: five seconds each (How long AED waits after one interface in a part goes down or comes back up before it disconnects or reconnects the other interface)
+
+### How link state propagation works
+
+- if one interface in a pair goes down, then AED disconnects the other interface
+- if the original interface that went down reconnects, then AED restores the other interface
+
+- if you force hardware bypass open or closed, link state propagation does not take effect
+
+### About link state propagation timeouts
+
+- `Interface Down`
+- `Interface Up`
+
+- Default value: 5 seconds each timeouts
+  - Can select timeouts (0-5 seconds)
+
+### Configuring link state propagation
+
+- `Administration > Interfaces`
+- Click **Edit** to the right of the interface pair
+
+![](IMG/2023-07-22-13-47-49.png)
+
+- Click **Edit** in the `Link State propagation Timeouts` section
+  - Change timeouts with **Interface Down** and **Interface Up** slider
+- Save
+
+## Configuring Static Routes
+
+- Need to configure static routes when
+  - You deploy vAED in the layer 3 mode
+  - You configure GRE tunneling for Cloud Signaling on AED
+    - AED uses this route to forward any traffic whose destination does not match the subnet of a tunnel destination of one of the other configured route
+
+### About routes
+
+- Not associated with a specific interface pair
+- Not Required
+- The IP address for the next hop must be on the same subnet as one of the AED tunnel destinations
+
+- Recommend that you configure at least one route 
+  - To 0.0.0.0/0 in the inline deployment mode
+  - To the subnet that vAED can access in t he layer 3 deployment mode
+
+### Configuring routes
+
+- `Administration > Interfaces > Routes section > Edit`
+
+![](IMG/2023-07-22-13-58-01.png)
+
+- Save
+
+### Deleting routes
+
+- `Administration > Interfaces > Routes section > Edit`
+  - Click to icon of **Delete Route** to the right of the **Nexthop** box for the route you want to delete
+- Save
+
+## Adding a Custom Logo to the U
+
+### Custom logo file requirements
+
+- File formats: GIF, JPG, and PNG
+- Image width: 100 pixels minimum, 300 pixels maximum
+- Image height: 20 pixels recommended
+  - Images that are more than 20 pixels high are cropped to 20 pixels.
+
+### Uploading and locking a custom logo
+
+- `Administration > Files > Upload Custom Files section > Upload Logo`
+  - Click **Browse** to select and image file and click **Upload**
+  - Refresh your browser
+  - Use `Lock Custom Logo` if your want it cannot changed
+  - OK
+
+### Unlocking a custom logo
+
+- `/ services aed stop`
+- `/ services aed data init`
+- `/ services aed start`
+
+### Using the AED default logo
+
+- `Administration > Files > Upload Custom Files section > Use Default Logo > OK`
+
+
